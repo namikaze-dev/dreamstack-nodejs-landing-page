@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>DreamStack Node.js — Production-ready Node backend template</title>
+  <meta name="description" content="DreamStack Node.js — production-grade backend template (TypeScript, Express, Prisma/Mongoose, RBAC, logging, testing)." />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+  <style>
+    /* small inlined fallback */
+    body { font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+    html { scroll-behavior: smooth; }
+    
+    /* Mobile menu styles */
+    .mobile-menu {
+      display: none;
+    }
+    .mobile-menu.active {
+      display: block;
+    }
+    
+    @media (max-width: 768px) {
+      .desktop-nav {
+        display: none;
+      }
+    }
+    
+    @media (min-width: 769px) {
+      .mobile-menu-button {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800 antialiased">
+  <!-- NAV -->
+  <header class="border-b border-gray-100">
+    <div class="container mx-auto px-6 py-5 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <!-- LOGO placeholder -->
+        <a href="/" class="flex items-center gap-3">
+          <!-- Replace /assets/logo-icon.svg with your logo file -->
+          <img src="/assets/logo-icon.svg" alt="DreamStack icon" class="h-8 w-auto" />
+          <span class="text-lg font-semibold text-graydark">DreamStack</span>
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <div class="desktop-nav flex items-center gap-4">
+        <!-- Optional product link -->
+        <a href="#features" class="text-sm text-gray-600 hover:text-gray-900">Features</a>
+
+        <!-- Gumroad Buy Button -->
+        <!-- Replace YOUR_GUMROAD_PRODUCT_URL with your Gumroad product URL (e.g. https://gumroad.com/l/xxxx) -->
+        <a href="https://gumroad.com/l/YOUR_GUMROAD_PRODUCT_URL" target="_blank"
+           class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md shadow-sm bg-brand text-white hover:bg-[var(--brand-hover)]">
+          Buy — $129
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button class="mobile-menu-button p-2 text-gray-600 hover:text-gray-900" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu border-t border-gray-100">
+      <div class="container mx-auto px-6 py-4 flex flex-col gap-4">
+        <a href="#features" onclick="closeMobileMenu()" class="text-base text-gray-600 hover:text-gray-900 py-2">Features</a>
+        <a href="https://gumroad.com/l/YOUR_GUMROAD_PRODUCT_URL" target="_blank"
+           class="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-md shadow-sm bg-brand text-white hover:bg-[var(--brand-hover)]">
+          Buy — $129
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main class="container mx-auto px-6 py-16">
+    <div class="hero-max mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+        <div>
+          <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900">
+            Skip boilerplate. Launch backends in hours.
+          </h1>
+          <p class="mt-4 text-lg text-gray-600">
+            DreamStack Node.js is a production-ready backend template for professional developers — TypeScript, Express, Prisma + Mongoose, JWT auth, RBAC, storage adapters, logging, and testing — wired and ready.
+          </p>
+
+          <div class="mt-8 flex flex-col sm:flex-row gap-3">
+            <a href="https://gumroad.com/l/YOUR_GUMROAD_PRODUCT_URL" target="_blank"
+               class="inline-flex items-center justify-center px-6 py-3 rounded-md bg-brand text-white font-semibold shadow hover:bg-[var(--brand-hover)]">
+              Buy for $129
+            </a>
+
+            <!-- Gumroad follow: PLACEHOLDER -->
+            <!-- Replace the following anchor with Gumroad's follow/fan embed code.
+                 To get the embed, log into Gumroad, go to your product or profile and copy the 'Follow' widget code.
+                 For now this is a fallback CTA that opens your Gumroad profile in a new tab. -->
+            <a href="https://gumroad.com/YOUR_GUMROAD_USERNAME" target="_blank"
+                class="inline-flex items-center justify-center px-6 py-3 rounded-md border border-brand text-brand">
+                Follow on Gumroad
+            </a>
+          </div>
+
+          <!-- Email capture (simple, non-modal) -->
+          <form id="notify-form" class="mt-6 flex flex-col sm:flex-row gap-3" onsubmit="handleNotify(event)">
+            <input id="notify-email" type="email" required placeholder="Your email — get updates & releases"
+                   class="w-full sm:w-auto flex-1 px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--brand)]" />
+            <button type="submit" class="px-6 py-3 rounded-md bg-gray-900 text-white font-medium">
+              Join waitlist
+            </button>
+          </form>
+          <p id="notify-msg" class="mt-3 text-sm text-gray-500"></p>
+        </div>
+
+        <!-- Right column: simple features list / screenshot placeholder -->
+        <div class="rounded-xl bg-gray-50 p-6">
+          <div class="h-64 flex items-center justify-center rounded-md bg-white border border-gray-100">
+            <!-- Hero visual placeholder — replace with screenshot or illustration -->
+            <div class="text-center text-gray-400">
+              <svg width="120" height="84" viewBox="0 0 120 84" fill="none" xmlns="http://www.w3.org/2000/svg" class="mx-auto mb-4">
+                <rect x="0.5" y="0.5" width="119" height="83" rx="8" stroke="#E6E6E6"></rect>
+                <path d="M12 20h96M12 36h96M12 52h96" stroke="#E6E6E6"></path>
+              </svg>
+              <div class="text-sm">Replace with product screenshot</div>
+            </div>
+          </div>
+
+          <ul class="mt-6 space-y-3">
+            <li class="flex items-start gap-3">
+              <svg class="h-5 w-5 text-brand mt-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.293a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 10-1.414 1.414L9 12.414l4.707-4.707z" clip-rule="evenodd" /></svg>
+              <div>
+                <div class="text-sm font-medium text-gray-900">Clean, modular architecture</div>
+                <div class="text-sm text-gray-600">Feature-based modules & DI container.</div>
+              </div>
+            </li>
+
+            <li class="flex items-start gap-3">
+              <svg class="h-5 w-5 text-brand mt-1" viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h5v2H4v6H3v-6a1 1 0 010-2zM8 4a1 1 0 011-1h2v12H9a1 1 0 01-1-1V4zm6 0a1 1 0 011-1h1v13h-1a1 1 0 01-1-1V4z"/></svg>
+              <div>
+                <div class="text-sm font-medium text-gray-900">Prisma + Mongoose</div>
+                <div class="text-sm text-gray-600">Switch DB drivers without touching business logic.</div>
+              </div>
+            </li>
+
+            <li class="flex items-start gap-3">
+              <svg class="h-5 w-5 text-brand mt-1" viewBox="0 0 20 20" fill="currentColor"><path d="M8 9a3 3 0 100-6 3 3 0 000 6zM2 13a6 6 0 0112 0 6 6 0 01-12 0z"/></svg>
+              <div>
+                <div class="text-sm font-medium text-gray-900">Auth, RBAC & testing</div>
+                <div class="text-sm text-gray-600">JWT auth, role checks, Jest testing setup.</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FEATURES / DETAILS -->
+  <section id="features" class="border-t border-gray-100 py-16">
+    <div class="container mx-auto px-6">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-2xl font-semibold text-gray-900">Everything you need to ship a backend</h2>
+        <p class="mt-3 text-gray-600">
+          Clean architecture, logging, Sentry, storage adapters, Swagger docs, graceful shutdown, and a lazy DI container — all wired and documented.
+        </p>
+      </div>
+
+      <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="p-6 bg-gray-50 border border-gray-200 rounded-lg">
+          <h3 class="font-semibold text-gray-900">Observability</h3>
+          <p class="mt-2 text-sm text-gray-600">Pino logs with request context and Sentry error tracking ready.</p>
+        </div>
+        <div class="p-6 bg-gray-50 border border-gray-200 rounded-lg">
+          <h3 class="font-semibold text-gray-900">Adapters</h3>
+          <p class="mt-2 text-sm text-gray-600">S3/local storage, Postmark email adapter implemented.</p>
+        </div>
+        <div class="p-6 bg-gray-50 border border-gray-200 rounded-lg">
+          <h3 class="font-semibold text-gray-900">Developer Experience</h3>
+          <p class="mt-2 text-sm text-gray-600">TypeScript strict mode, ESLint, Prettier, Jest, and example tests.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-gray-100 mt-16">
+    <div class="container mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="/assets/logo-icon.svg" alt="DreamStack logo" class="h-8 w-auto" />
+        <span class="text-sm text-gray-600">DreamStack — DreamVerse</span>
+      </div>
+
+      <div class="mt-4 md:mt-0 text-sm text-gray-500">
+        © <span id="year"></span> DreamVerse by Kata — All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('active');
+    }
+
+    function closeMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.remove('active');
+    }
+
+    // Smooth scroll with offset for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href === '#' || href === '') return;
+        
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          const headerOffset = 80; // Adjust based on your header height
+          const elementPosition = target.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+          
+          closeMobileMenu();
+        }
+      });
+    });
+
+    // Simple notify form handler: posts to Gumroad follow can be added here.
+    function handleNotify(e) {
+      e.preventDefault();
+      const email = document.getElementById('notify-email').value;
+      const msg = document.getElementById('notify-msg');
+
+      // Temporary local confirmation message:
+      msg.textContent = "Thanks — we'll send updates about DreamStack to " + email + ".";
+      msg.classList.remove('text-gray-500');
+      msg.classList.add('text-green-600');
+
+      // TODO: Replace this with:
+      // 1) Gumroad follow/fan form embed script (recommended), or
+      // 2) Your email marketing provider API (Mailchimp/ConvertKit), or
+      // 3) Post to your backend endpoint that stores the email in your db.
+      //
+      // Example: to use Gumroad's follow widget, paste the Gumroad embed code in the HTML (Gumroad provides the snippet in its dashboard).
+    }
+  </script>
+</body>
+</html>
