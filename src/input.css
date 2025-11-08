@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom small styles */
+:root {
+  --brand: #0069FF;
+  --brand-hover: #0052CC;
+  --gray-dark: #333333;
+  --gray-light: #F5F5F5;
+}
+
+/* Optional small utility to keep hero max width pleasant */
+.hero-max {
+  max-width: 920px;
+}
