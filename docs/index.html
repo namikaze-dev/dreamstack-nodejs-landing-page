@@ -103,8 +103,8 @@
                  To get the embed, log into Gumroad, go to your product or profile and copy the 'Follow' widget code.
                  For now this is a fallback CTA that opens your Gumroad profile in a new tab. -->
             <a href="https://gumroad.com/YOUR_GUMROAD_USERNAME" target="_blank"
-                class="inline-flex items-center justify-center px-6 py-3 rounded-md border border-brand text-brand">
-                Follow on Gumroad
+              class="inline-flex items-center justify-center px-6 py-3 rounded-md border border-brand text-brand hover:bg-[var(--brand-hover)] hover:text-white">
+              Follow on Gumroad
             </a>
           </div>
 
@@ -112,7 +112,7 @@
           <form id="notify-form" class="mt-6 flex flex-col sm:flex-row gap-3" onsubmit="handleNotify(event)">
             <input id="notify-email" type="email" required placeholder="Your email — get updates & releases"
                    class="w-full sm:w-auto flex-1 px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--brand)]" />
-            <button type="submit" class="px-6 py-3 rounded-md bg-gray-900 text-white font-medium">
+            <button type="submit" class="px-6 py-3 rounded-md bg-gray-900 text-white font-medium hover:bg-white hover:text-graydark border border-transparent hover:border-graydark transition-colors">
               Join waitlist
             </button>
           </form>
